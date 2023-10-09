@@ -1,19 +1,16 @@
 package com.fiap.controllSales.controller;
 
-import com.fiap.controllSales.dto.category.CreateCategoryDTO;
-import com.fiap.controllSales.dto.category.GetCategoryDTO;
 import com.fiap.controllSales.dto.product.CreateProductDTO;
-import com.fiap.controllSales.service.CategoryService;
+import com.fiap.controllSales.dto.product.GetProductDTO;
+import com.fiap.controllSales.dto.product.UpdateProductDTO;
 import com.fiap.controllSales.service.ProductService;
 import jakarta.transaction.Transactional;
-import org.aspectj.lang.annotation.DeclareWarning;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/product")
@@ -24,8 +21,31 @@ public class ProductController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CreateProductDTO> create(@RequestBody CreateProductDTO createProductDTO) {
-         productService.createProduct(createProductDTO);
-        return new ResponseEntity<CreateProductDTO>(HttpStatus.CREATED);
+    public ResponseEntity<GetProductDTO> create(@RequestBody CreateProductDTO createProductDTO, UriComponentsBuilder builder) {
+        GetProductDTO productResponse = productService.createProduct(createProductDTO);
+        var URI = builder.path("/product/{id}").buildAndExpand(productResponse.getId()).toUri();
+        return ResponseEntity.created(URI).body(productResponse);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetProductDTO> read(@PathVariable UUID id){
+        GetProductDTO productResponse = productService.getProduct(id);
+        return ResponseEntity.ok(productResponse);
+    }
+
+    @PostMapping
+    @Transactional
+    public ResponseEntity<GetProductDTO> update(@RequestBody UpdateProductDTO updateProductDTO){
+        GetProductDTO productResponse = productService.updateProduct(updateProductDTO);
+        return ResponseEntity.ok(productResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity delete(@PathVariable UUID id){
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
