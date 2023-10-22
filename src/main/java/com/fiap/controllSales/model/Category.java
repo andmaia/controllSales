@@ -2,6 +2,7 @@ package com.fiap.controllSales.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private UUID id;
+    @NotBlank(message = "{category.name.blank}")
     private String name;
     private LocalDateTime creation;
     private LocalDateTime end;
