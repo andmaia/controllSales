@@ -60,7 +60,7 @@ public class ProductService {
 
     public GetProductDTO updateProduct(UpdateProductDTO request){
         try {
-            Product product = productRepository.getByName(request.getName());
+            Product product = productRepository.getReferenceById(request.getId());
 
             if(request.getName()!=null){
                 product.setName(request.getName());

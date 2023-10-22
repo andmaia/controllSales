@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
+
+</head>
+<body >
+    <div class="containerCadastro">
+        <div th:replace="~{layouts/Sidebar}"></div>
+        <div class="formularioCadastro">
+            <div>
+                <input type="text" class="form-control" placeholder="Nome" aria-label="name">
+            </div>
+            <div>
+                <input type="text" class="form-control" placeholder="Quantidade" aria-label="quantity">
+            </div>
+            <div>
+                <input type="text" class="form-control" placeholder="Preço" aria-label="price">
+            </div>
+            <div>
+                <select class="form-select" aria-label="category">
+                    <option value="">Selecione a Categoria</option>
+                    <option value="categoria1">Categoria 1</option>
+                    <option value="categoria2">Categoria 2</option>
+                    <option value="categoria3">Categoria 3</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
+
+</head>
+<body >
+<div class="containerCadastro">
+    <div th:replace="~{layouts/Sidebar}"></div>
+    <div class="containerFormularioListagem">
+        <div >
+            <form class="formularioCadastroCategoria" th:action="@{/category}" method="POST">
+                <div class="form-group">
+                    <label for="name">Nome da Categoria:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome">
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Categoria</button>
+            </form>
+        </div>
+        <div>
+            <h2>Listagem de Categorias</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Criação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.name}">Nome da Categoria</td>
+                    <td th:text="${#temporals.format(category.creation, 'dd/MM/yyyy HH:mm:ss')}">Data de Criação</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

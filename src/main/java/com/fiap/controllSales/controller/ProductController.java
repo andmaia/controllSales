@@ -3,16 +3,18 @@ package com.fiap.controllSales.controller;
 import com.fiap.controllSales.dto.product.CreateProductDTO;
 import com.fiap.controllSales.dto.product.GetProductDTO;
 import com.fiap.controllSales.dto.product.UpdateProductDTO;
+import com.fiap.controllSales.model.Product;
 import com.fiap.controllSales.service.ProductService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
@@ -33,7 +35,7 @@ public class ProductController {
         return ResponseEntity.ok(productResponse);
     }
 
-    @PostMapping
+    @PutMapping
     @Transactional
     public ResponseEntity<GetProductDTO> update(@RequestBody UpdateProductDTO updateProductDTO){
         GetProductDTO productResponse = productService.updateProduct(updateProductDTO);
@@ -47,5 +49,9 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/cadastro")
+    public String form(){
+        return "products/Products";
+    }
 
 }

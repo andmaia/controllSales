@@ -2,10 +2,13 @@ package com.fiap.controllSales.service;
 
 import com.fiap.controllSales.dto.category.CreateCategoryDTO;
 import com.fiap.controllSales.dto.category.GetCategoryDTO;
+import com.fiap.controllSales.dto.category.UpdateCategoryDTO;
 import com.fiap.controllSales.model.Category;
 import com.fiap.controllSales.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -52,9 +55,9 @@ public class CategoryService {
          }
     }
 
-    public GetCategoryDTO updateCategory(CreateCategoryDTO request){
+    public GetCategoryDTO updateCategory(UpdateCategoryDTO request){
         try{
-            Category category = categoryRepository.getByName(request.getName());
+            Category category = categoryRepository.getReferenceById(request.getId());
 
             if(request.getName()!=null){
                 category.setName(request.getName());
@@ -81,5 +84,14 @@ public class CategoryService {
         }
     }
 
+    public Page<GetCategoryDTO> getAllCategories(Pageable pageable) {
+        return categoryRepository.findAll(pageable).map(this::convertToGetCategoryDTO);
+    }
+
+    private GetCategoryDTO convertToGetCategoryDTO(Category category) {
+        return new GetCategoryDTO(
+                category.getId(), category.getName(), category.getCreation()
+        );
+    }
 
 }

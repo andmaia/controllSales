@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -13,21 +12,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table
-public class Product {
-
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private UUID id;
-    private String name;
-    private int quantity;
-    private Long price;
-    private boolean active;
-    private LocalDateTime creation;
-    private  LocalDateTime end;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-
+    private String email;
+    private String password;
 }

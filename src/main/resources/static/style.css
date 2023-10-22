@@ -1,0 +1,30 @@
+.containerCadastro {
+    display: flex;
+    flex-direction:row;
+
+}
+
+
+
+.formularioCadastro {
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+.containerFormularioListagem {
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+.formularioCadastroCategoria {
+    margin:10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
